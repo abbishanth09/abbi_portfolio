@@ -10,6 +10,10 @@ header ul li{
   background: rgb(85 81 227);
 }
 
+.bg-secondary{
+  background: rgb(28, 25, 113);
+}
+
 .mobile-nav {
   @apply fixed top-10 left-0 bg-gray-600 w-full h-1/4;
 }

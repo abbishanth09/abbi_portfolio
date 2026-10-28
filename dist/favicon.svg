@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Portfolio logo">
+  <rect width="64" height="64" fill="#111111"/>
+  <circle cx="46" cy="18" r="8" fill="#6D28D9"/>
+  <path d="M16 18h16v8H20v20h-8V18zm18 0h12v8H34v8h12v8H34v12h-8V18z" fill="#FFFFFF"/>
+</svg>

@@ -1,3 +1,4 @@
+import emailjs from '@emailjs/browser';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { FormEvent, useState } from 'react';
 import { site } from '../data/site';
@@ -19,6 +20,7 @@ export function ContactSection() {
   const [form, setForm] = useState<FormState>(initialForm);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const validate = () => {
     const nextErrors: Partial<Record<keyof FormState, string>> = {};
@@ -35,15 +37,46 @@ export function ContactSection() {
     return Object.keys(nextErrors).length === 0;
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setSubmitError('');
+
     if (!validate()) {
       setSubmitted(false);
       return;
     }
-    setSubmitted(true);
-    setForm(initialForm);
-    setErrors({});
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setSubmitted(false);
+      setSubmitError('Email service is not configured yet. Add your EmailJS keys in a .env.local file.');
+      return;
+    }
+
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          message: form.message,
+          to_email: site.email,
+        },
+        { publicKey },
+      );
+
+      setSubmitted(true);
+      setForm(initialForm);
+      setErrors({});
+    } catch (error) {
+      console.error('EmailJS send failed:', error);
+      setSubmitted(false);
+      setSubmitError('Message could not be sent. Please try again later or email me directly.');
+    }
   };
 
   const handleChange = (field: keyof FormState, value: string) => {
@@ -189,6 +222,19 @@ export function ContactSection() {
                     className="text-sm text-accent"
                   >
                     Message sent.
+                  </motion.p>
+                )}
+              </AnimatePresence>
+
+              <AnimatePresence>
+                {submitError && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 6 }}
+                    className="text-sm text-red-500"
+                  >
+                    {submitError}
                   </motion.p>
                 )}
               </AnimatePresence>

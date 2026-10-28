@@ -7,12 +7,12 @@ export const site = {
   name: 'Thiyagaraja Abbishanth',
   handle: 'ABBISHANTH',
   role: 'CYBER SECURITY ENGINEER',
-  email: 'abbishanth09@gmail.com',
+  email: 'abbishanth1209@gmail.com',
   year: new Date().getFullYear(),
   socials: [
     { label: 'GitHub', href: 'https://github.com/abbishanth09' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/abbishanth/' },
-    { label: 'Email', href: 'mailto:abbishanth09@gmail.com' },
+    { label: 'Email', href: 'mailto:abbishanth1209@gmail.com' },
   ] as SocialLink[],
   nav: [
     { label: 'Home', href: '#home' },

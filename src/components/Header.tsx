@@ -6,9 +6,11 @@ type HeaderProps = {
   sectionIds: string[];
   mobileMenuOpen: boolean;
   setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  darkMode: boolean;
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export function Header({ sectionIds, mobileMenuOpen, setMobileMenuOpen }: HeaderProps) {
+export function Header({ sectionIds, mobileMenuOpen, setMobileMenuOpen, darkMode, setDarkMode }: HeaderProps) {
   const activeSection = useActiveSection(sectionIds);
   const reduceMotion = useReducedMotion();
 
@@ -46,18 +48,30 @@ export function Header({ sectionIds, mobileMenuOpen, setMobileMenuOpen }: Header
           })}
         </nav>
 
-        <button
-          type="button"
-          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-black/10 text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 md:hidden"
-          onClick={() => setMobileMenuOpen((current) => !current)}
-        >
-          <span className="relative block h-4 w-5">
-            <span className={`absolute left-0 h-px w-full bg-ink transition-transform duration-300 ${mobileMenuOpen ? 'top-2 rotate-45' : 'top-0'}`} />
-            <span className={`absolute left-0 h-px w-full bg-ink transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-0' : 'top-2 opacity-100'}`} />
-            <span className={`absolute left-0 h-px w-full bg-ink transition-transform duration-300 ${mobileMenuOpen ? 'top-2 -rotate-45' : 'top-4'}`} />
-          </span>
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-pressed={darkMode}
+            onClick={() => setDarkMode((current) => !current)}
+            className="inline-flex h-9 items-center rounded-full border border-black/10 bg-transparent px-3 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-ink transition-colors duration-200 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+          >
+            {darkMode ? 'Light' : 'Dark'}
+          </button>
+
+          <button
+            type="button"
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-black/10 text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 md:hidden"
+            onClick={() => setMobileMenuOpen((current) => !current)}
+          >
+            <span className="relative block h-4 w-5">
+              <span className={`absolute left-0 h-px w-full bg-ink transition-transform duration-300 ${mobileMenuOpen ? 'top-2 rotate-45' : 'top-0'}`} />
+              <span className={`absolute left-0 h-px w-full bg-ink transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-0' : 'top-2 opacity-100'}`} />
+              <span className={`absolute left-0 h-px w-full bg-ink transition-transform duration-300 ${mobileMenuOpen ? 'top-2 -rotate-45' : 'top-4'}`} />
+            </span>
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>

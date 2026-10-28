@@ -1,13 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        ink: '#111111',
-        paper: '#FFFFFF',
-        muted: '#8A8A8A',
-        ghost: '#F2F2F2',
+        ink: 'var(--ink)',
+        paper: 'var(--paper)',
+        muted: 'var(--muted)',
+        ghost: 'var(--ghost)',
         accent: '#6D28D9',
       },
       fontFamily: {

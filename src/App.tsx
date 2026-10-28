@@ -1,5 +1,5 @@
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Header } from './components/Header';
 import { AboutSection } from './sections/AboutSection';
 import { ContactSection } from './sections/ContactSection';
@@ -10,9 +10,20 @@ const sectionIds = ['home', 'about', 'work', 'contact'];
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    const savedTheme = window.localStorage.getItem('theme');
+    if (savedTheme) return savedTheme === 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
   const { scrollYProgress } = useScroll();
   const progressSpring = useSpring(scrollYProgress, { stiffness: 120, damping: 20, mass: 0.2 });
   const progressScale = useTransform(progressSpring, [0, 1], [0, 1]);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', darkMode);
+    window.localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+  }, [darkMode]);
 
   return (
     <div className="min-h-screen bg-paper font-mono text-ink antialiased selection:bg-accent selection:text-paper">
@@ -25,6 +36,8 @@ function App() {
         sectionIds={sectionIds}
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
       />
 
       <main className={`transition-all duration-300 ease-out ${mobileMenuOpen ? 'scale-[0.98] blur-sm' : ''}`}>

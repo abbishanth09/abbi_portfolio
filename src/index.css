@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 :root {
-  color: #111111;
-  background-color: #ffffff;
+  --paper: #ffffff;
+  --ink: #111111;
+  --muted: #8a8a8a;
+  --ghost: #f2f2f2;
+  --border-soft: rgba(17, 17, 17, 0.1);
+  color: var(--ink);
+  background-color: var(--paper);
   font-family: 'IBM Plex Mono', 'JetBrains Mono', 'SFMono-Regular', 'Menlo', monospace;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -12,11 +17,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-html {
-  font-family: 'IBM Plex Mono', 'JetBrains Mono', 'SFMono-Regular', 'Menlo', monospace;
+html.dark {
+  --paper: #0b0b0d;
+  --ink: #f5f5f5;
+  --muted: #a6a9ad;
+  --ghost: #17191d;
+  --border-soft: rgba(255, 255, 255, 0.12);
 }
 
 html {
+  font-family: 'IBM Plex Mono', 'JetBrains Mono', 'SFMono-Regular', 'Menlo', monospace;
   scroll-behavior: smooth;
 }
 
@@ -24,7 +34,9 @@ body {
   margin: 0;
   min-width: 320px;
   overflow-x: hidden;
-  background: #ffffff;
+  background: var(--paper);
+  color: var(--ink);
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 * {
@@ -49,6 +61,12 @@ textarea {
 ::selection {
   background: #6d28d9;
   color: #ffffff;
+}
+
+html.dark .border-black\/10,
+html.dark .border-black\/15,
+html.dark .border-black\/20 {
+  border-color: var(--border-soft);
 }
 
 @media (prefers-reduced-motion: reduce) {

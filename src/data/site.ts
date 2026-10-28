@@ -11,7 +11,7 @@ export const site = {
   year: new Date().getFullYear(),
   socials: [
     { label: 'GitHub', href: 'https://github.com/abbishanth09' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/abbishanth-t-9b3b8b1b7/' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/abbishanth/' },
     { label: 'Email', href: 'mailto:abbishanth09@gmail.com' },
   ] as SocialLink[],
   nav: [

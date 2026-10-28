@@ -1,14 +1,14 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { useState } from 'react';
 import { site } from '../data/site';
 import { useActiveSection } from '../hooks/useActiveSection';
 
 type HeaderProps = {
   sectionIds: string[];
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export function Header({ sectionIds }: HeaderProps) {
-  const [open, setOpen] = useState(false);
+export function Header({ sectionIds, mobileMenuOpen, setMobileMenuOpen }: HeaderProps) {
   const activeSection = useActiveSection(sectionIds);
   const reduceMotion = useReducedMotion();
 
@@ -48,20 +48,20 @@ export function Header({ sectionIds }: HeaderProps) {
 
         <button
           type="button"
-          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-black/10 text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 md:hidden"
-          onClick={() => setOpen((current) => !current)}
+          onClick={() => setMobileMenuOpen((current) => !current)}
         >
           <span className="relative block h-4 w-5">
-            <span className={`absolute left-0 h-px w-full bg-ink transition-transform duration-300 ${open ? 'top-2 rotate-45' : 'top-0'}`} />
-            <span className={`absolute left-0 h-px w-full bg-ink transition-opacity duration-300 ${open ? 'opacity-0' : 'top-2 opacity-100'}`} />
-            <span className={`absolute left-0 h-px w-full bg-ink transition-transform duration-300 ${open ? 'top-2 -rotate-45' : 'top-4'}`} />
+            <span className={`absolute left-0 h-px w-full bg-ink transition-transform duration-300 ${mobileMenuOpen ? 'top-2 rotate-45' : 'top-0'}`} />
+            <span className={`absolute left-0 h-px w-full bg-ink transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-0' : 'top-2 opacity-100'}`} />
+            <span className={`absolute left-0 h-px w-full bg-ink transition-transform duration-300 ${mobileMenuOpen ? 'top-2 -rotate-45' : 'top-4'}`} />
           </span>
         </button>
       </div>
 
       <AnimatePresence>
-        {open && (
+        {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -78,7 +78,7 @@ export function Header({ sectionIds }: HeaderProps) {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.08, duration: 0.25, ease: 'easeOut' }}
                   className="w-full border-b border-black/10 pb-4 text-[clamp(2.1rem,8vw,4rem)] font-medium uppercase leading-none tracking-[-0.06em] text-ink"
-                  onClick={() => setOpen(false)}
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.label}
                 </motion.a>

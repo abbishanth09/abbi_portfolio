@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { NextLink } from '../components/NextLink';
 import { skills } from '../data/skills';
 import { site } from '../data/site';
+import Abbishanth from '../assets/Abbishanth.jpg';
 
 export function AboutSection() {
   const reduceMotion = useReducedMotion();
@@ -51,8 +52,8 @@ export function AboutSection() {
         >
           <div className="group relative aspect-[4/5] w-full max-w-[420px] overflow-hidden border border-black/10 bg-ghost">
             <img
-              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80"
-              alt="Portrait of the designer"
+              src={Abbishanth}
+              alt="Portrait of Abbishanth"
               className="h-full w-full object-cover grayscale transition duration-500 group-hover:grayscale-0"
               loading="lazy"
             />

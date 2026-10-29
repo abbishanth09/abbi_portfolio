@@ -57,7 +57,7 @@ export function HomeSection() {
                 </motion.h1>
               </AnimatePresence>
             </div>
-            <div className="overflow-hidden">
+            <div className="overflow-visible">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.h1
                   key={isMobileApplication ? 'DEVELOPER' : 'ENGINEER'}
@@ -65,10 +65,11 @@ export function HomeSection() {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: '-110%', opacity: 0 }}
                   transition={{ duration: 0.55, ease: 'easeInOut' }}
-                  className="text-[clamp(2.8rem,8vw,6.2rem)] font-medium uppercase leading-[0.9] tracking-[-0.06em] text-ink"
+                  className="whitespace-nowrap text-[clamp(2.8rem,8vw,6.2rem)] font-medium uppercase leading-[0.9] tracking-[-0.06em] text-ink"
                 >
                   {isMobileApplication ? 'DEVELOPER' : 'ENGINEER'}
-                  <span className="text-accent">.../&gt;</span>
+                  <span className="text-accent">...</span>
+                  <span className="ml-3 inline-block font-bold tracking-normal text-accent">/&gt;</span>
                 </motion.h1>
               </AnimatePresence>
             </div>

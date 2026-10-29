@@ -76,7 +76,7 @@ export function WorkSection() {
         </div>
 
         <div className="mt-10 flex justify-end">
-          <NextLink href="#contact" label="Contact" number="04" />
+          <NextLink href="#certifications" label="Certifications" number="04" />
         </div>
       </div>
     </section>

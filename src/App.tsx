@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react';
 import { Header } from './components/Header';
 import { AboutSection } from './sections/AboutSection';
 import { ContactSection } from './sections/ContactSection';
+import { CertificationsSection } from './sections/CertificationsSection';
 import { HomeSection } from './sections/HomeSection';
 import { WorkSection } from './sections/WorkSection';
 
-const sectionIds = ['home', 'about', 'work', 'contact'];
+const sectionIds = ['home', 'about', 'work', 'certifications', 'contact'];
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -44,6 +45,7 @@ function App() {
         <HomeSection />
         <AboutSection />
         <WorkSection />
+        <CertificationsSection />
         <ContactSection />
       </main>
     </div>

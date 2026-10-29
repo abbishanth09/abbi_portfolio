@@ -18,6 +18,7 @@ export const site = {
     { label: 'Home', href: '#home' },
     { label: 'About', href: '#about' },
     { label: 'Projects', href: '#work' },
+    { label: 'Certifications', href: '#certifications' },
     { label: 'Contact', href: '#contact' },
   ],
   intro: 'Thiyagaraja Abbishanth',

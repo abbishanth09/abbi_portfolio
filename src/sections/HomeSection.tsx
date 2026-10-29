@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { NextLink } from '../components/NextLink';
 import { site } from '../data/site';
 
-const roles = ['CYBER SECURITY', 'NETWORK', 'SOFTWARE'];
+const roles = ['CYBER SECURITY', 'NETWORK', 'SOFTWARE', 'Systems'];
 
 export function HomeSection() {
   const reduceMotion = useReducedMotion();
@@ -63,7 +63,7 @@ export function HomeSection() {
                 transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
                 className="text-[clamp(2.8rem,8vw,6.2rem)] font-medium uppercase leading-[0.9] tracking-[-0.06em] text-ink"
               >
-                <span className="text-accent">/</span>ENGINEER<span className="text-accent">.</span>
+                ENGINEER<span className="text-accent">.../&gt;</span>
               </motion.h1>
             </div>
           </div>

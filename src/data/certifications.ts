@@ -4,9 +4,9 @@ import hackMS from '../assets/HackMS.jpeg';
 import deloitte from '../assets/Deloitte Technology Job Simulation.png';
 import azure from '../assets/Azure AI Speech Translation & Serverless APIs Workshop.png';
 import apsc from '../assets/APSC Cyber security Competition.jpeg';
-import cyberSecurityPdf from '../assets/Cyber Security & Ethical Hacking.pdf';
-import cloudPdf from '../assets/Introduction_to_Cloud_Skills_with_AWS-Certificate.pdf';
-import aiMlPdf from '../assets/AI___Machine_Learning_Research_Fundamentals-Certificate.pdf';
+import cyberSecurity from '../assets/Cyber Security & Ethical Hacking.png';
+import cloud from '../assets/Introduction_to_Cloud_Skills_with_AWS-Certificate.png';
+import aiMl from '../assets/AI___Machine_Learning_Research_Fundamentals-Certificate.png';
 
 export type Certification = {
   title: string;
@@ -21,7 +21,8 @@ export const certifications: Certification[] = [
     title: 'Cybersecurity & Ethical Hacking',
     issuer: 'CapriccioSec University',
     year: '2025',
-    href: cyberSecurityPdf,
+    image: cyberSecurity,
+    href: cyberSecurity,
   },
   {
     title: 'Cybersecurity Competition',
@@ -41,14 +42,15 @@ export const certifications: Certification[] = [
     title: 'Introduction to Cloud Skills with AWS',
     issuer: 'QrioMatrix Technologies / Qcerty',
     year: '2026',
-    image: undefined,
-    href: cloudPdf,
+    image: cloud,
+    href: cloud,
   },
   {
     title: 'AI & Machine Learning Research Fundamentals',
     issuer: 'QrioMatrix Technologies / Qcerty',
     year: '2026',
-    href: aiMlPdf,
+    image: aiMl,
+    href: aiMl,
   },
   {
     title: 'Azure AI Speech Translation & Serverless APIs Workshop',

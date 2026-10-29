@@ -3,11 +3,12 @@ import { useEffect, useState } from 'react';
 import { NextLink } from '../components/NextLink';
 import { site } from '../data/site';
 
-const roles = ['CYBER SECURITY', 'NETWORK', 'SOFTWARE', 'Systems'];
+const roles = ['CYBER SECURITY', 'NETWORK', 'SOFTWARE', 'Systems', 'Mobile Application'];
 
 export function HomeSection() {
   const reduceMotion = useReducedMotion();
   const [roleIndex, setRoleIndex] = useState(0);
+  const isMobileApplication = roles[roleIndex] === 'Mobile Application';
 
   useEffect(() => {
     if (reduceMotion) {
@@ -57,14 +58,19 @@ export function HomeSection() {
               </AnimatePresence>
             </div>
             <div className="overflow-hidden">
-              <motion.h1
-                initial={{ y: '110%' }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
-                className="text-[clamp(2.8rem,8vw,6.2rem)] font-medium uppercase leading-[0.9] tracking-[-0.06em] text-ink"
-              >
-                ENGINEER<span className="text-accent">.../&gt;</span>
-              </motion.h1>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.h1
+                  key={isMobileApplication ? 'DEVELOPER' : 'ENGINEER'}
+                  initial={{ y: '110%', opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: '-110%', opacity: 0 }}
+                  transition={{ duration: 0.55, ease: 'easeInOut' }}
+                  className="text-[clamp(2.8rem,8vw,6.2rem)] font-medium uppercase leading-[0.9] tracking-[-0.06em] text-ink"
+                >
+                  {isMobileApplication ? 'DEVELOPER' : 'ENGINEER'}
+                  <span className="text-accent">.../&gt;</span>
+                </motion.h1>
+              </AnimatePresence>
             </div>
           </div>
         </motion.div>

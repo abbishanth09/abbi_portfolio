@@ -13,6 +13,7 @@ export function WorkSection() {
   const springX = useSpring(x, { stiffness: 180, damping: 22 });
   const springY = useSpring(y, { stiffness: 180, damping: 22 });
   const selectedProjectDetails = selectedProject === null ? null : projects[selectedProject];
+  const opensProjectDialog = (projectIndex: number) => Boolean(projects[projectIndex].githubUrl);
 
   useEffect(() => {
     if (selectedProject === null) return;
@@ -54,12 +55,12 @@ export function WorkSection() {
               key={project.title}
               href={project.href}
               onClick={(event) => {
-                if (project.title.startsWith('Serendip Waves')) {
+                if (opensProjectDialog(index)) {
                   event.preventDefault();
                   setSelectedProject(index);
                 }
               }}
-              onMouseMove={project.title.startsWith('Serendip Waves') ? handleMove : undefined}
+              onMouseMove={opensProjectDialog(index) ? handleMove : undefined}
               onMouseEnter={() => setActiveProject(index)}
               onMouseLeave={() => setActiveProject(null)}
               initial={reduceMotion ? false : { opacity: 0, y: 30 }}
@@ -146,14 +147,18 @@ export function WorkSection() {
                   <p id="project-dialog-description" className="text-sm leading-7 text-muted">
                     {selectedProjectDetails.summary}
                   </p>
-                  <a
-                    href={selectedProjectDetails.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex border border-accent px-4 py-3 text-[0.68rem] uppercase tracking-[0.16em] text-accent transition-colors hover:bg-accent hover:text-paper"
-                  >
-                    View GitHub repository ↗
-                  </a>
+                  <div className="flex flex-wrap gap-3">
+                    {selectedProjectDetails.githubUrl && (
+                      <a
+                        href={selectedProjectDetails.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex border border-accent px-4 py-3 text-[0.68rem] uppercase tracking-[0.16em] text-accent transition-colors hover:bg-accent hover:text-paper"
+                      >
+                        View GitHub repository ↗
+                      </a>
+                    )}
+                  </div>
                 </div>
               </motion.div>
             </motion.div>

@@ -6,25 +6,23 @@ export function useActiveSection(sectionIds: string[]) {
   useEffect(() => {
     const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    const updateActiveSection = () => {
+      const marker = window.innerHeight * 0.35;
+      const currentSection = sections
+        .filter((section) => section.getBoundingClientRect().top <= marker)
+        .at(-1);
 
-        if (visibleEntry) {
-          setActiveSection(visibleEntry.target.id);
-        }
-      },
-      {
-        rootMargin: '-20% 0px -45% 0px',
-        threshold: [0.2, 0.5, 0.8],
-      }
-    );
+      setActiveSection(currentSection?.id ?? sections[0]?.id ?? 'home');
+    };
 
-    sections.forEach((section) => observer.observe(section));
+    updateActiveSection();
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    window.addEventListener('resize', updateActiveSection);
 
-    return () => observer.disconnect();
+    return () => {
+      window.removeEventListener('scroll', updateActiveSection);
+      window.removeEventListener('resize', updateActiveSection);
+    };
   }, [sectionIds]);
 
   return activeSection;

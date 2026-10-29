@@ -6,7 +6,7 @@ export type SocialLink = {
 export const site = {
   name: 'Thiyagaraja Abbishanth',
   handle: 'ABBISHANTH',
-  role: 'CYBER SECURITY ENGINEER',
+  role: 'NETWORK SOFTWARE ENGINEER',
   email: 'abbishanth1209@gmail.com',
   year: new Date().getFullYear(),
   socials: [

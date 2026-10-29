@@ -1,16 +1,31 @@
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NextLink } from '../components/NextLink';
 import { projects } from '../data/projects';
 
 export function WorkSection() {
   const reduceMotion = useReducedMotion();
   const [activeProject, setActiveProject] = useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 180, damping: 22 });
   const springY = useSpring(y, { stiffness: 180, damping: 22 });
+  const selectedProjectDetails = selectedProject === null ? null : projects[selectedProject];
+
+  useEffect(() => {
+    if (selectedProject === null) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setSelectedProject(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedProject]);
 
   const handleMove = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (reduceMotion) return;
@@ -38,7 +53,13 @@ export function WorkSection() {
             <motion.a
               key={project.title}
               href={project.href}
-              onMouseMove={handleMove}
+              onClick={(event) => {
+                if (project.title.startsWith('Serendip Waves')) {
+                  event.preventDefault();
+                  setSelectedProject(index);
+                }
+              }}
+              onMouseMove={project.title.startsWith('Serendip Waves') ? handleMove : undefined}
               onMouseEnter={() => setActiveProject(index)}
               onMouseLeave={() => setActiveProject(null)}
               initial={reduceMotion ? false : { opacity: 0, y: 30 }}
@@ -74,6 +95,70 @@ export function WorkSection() {
             </motion.a>
           ))}
         </div>
+
+        <AnimatePresence>
+          {selectedProjectDetails && (
+            <motion.div
+              className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 px-5 py-8"
+              role="presentation"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onMouseDown={(event) => {
+                if (event.target === event.currentTarget) {
+                  setSelectedProject(null);
+                }
+              }}
+            >
+              <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="project-dialog-title"
+                aria-describedby="project-dialog-description"
+                className="relative max-h-full w-full max-w-2xl overflow-auto border border-black/10 bg-paper shadow-xl"
+                initial={{ opacity: 0, y: 20, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.96 }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
+              >
+                <img
+                  src={selectedProjectDetails.image}
+                  alt={`${selectedProjectDetails.title} project`}
+                  className="aspect-[16/8] w-full object-cover"
+                />
+                <div className="space-y-5 p-6 sm:p-8">
+                  <div className="flex items-start justify-between gap-5">
+                    <div>
+                      <p className="mb-2 text-[0.68rem] uppercase tracking-[0.18em] text-muted">Project details</p>
+                      <h2 id="project-dialog-title" className="text-2xl font-medium uppercase leading-tight tracking-[-0.05em] text-ink">
+                        {selectedProjectDetails.title}
+                      </h2>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProject(null)}
+                      aria-label="Close project details"
+                      className="text-2xl leading-none text-muted transition-colors hover:text-accent"
+                    >
+                      ×
+                    </button>
+                  </div>
+                  <p id="project-dialog-description" className="text-sm leading-7 text-muted">
+                    {selectedProjectDetails.summary}
+                  </p>
+                  <a
+                    href={selectedProjectDetails.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex border border-accent px-4 py-3 text-[0.68rem] uppercase tracking-[0.16em] text-accent transition-colors hover:bg-accent hover:text-paper"
+                  >
+                    View GitHub repository ↗
+                  </a>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div className="mt-10 flex justify-end">
           <NextLink href="#certifications" label="Certifications" number="04" />

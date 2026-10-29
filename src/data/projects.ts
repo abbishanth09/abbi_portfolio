@@ -1,3 +1,5 @@
+import serendipWaves from '../assets/Serendip Waves.png';
+
 export type Project = {
   title: string;
   tag: string;
@@ -44,8 +46,9 @@ export const projects: Project[] = [
     title: 'Serendip Waves — Cruise Booking Platform',
     tag: 'REACT / PHP / MYSQL',
     year: '2025',
-    href: '#contact',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=900&q=80',
-    summary: 'Full-stack cruise booking platform with real-time booking, inventory management, OTP-based email verification, meal preferences, and facility reservations.',
+    href: 'https://github.com/abbishanth09/Serendip-Waves-Project-I',
+    image: serendipWaves,
+    summary:
+      'Built a full-stack cruise booking platform with a PHP/MySQL backend and React frontend, featuring real-time booking, inventory management, and OTP-based user verification. The platform uses modular PHP scripts with RESTful principles and a MySQL database for structured data storage. Its React and Vite frontend includes ESLint integration and a component-based architecture for future expansion.',
   },
 ];

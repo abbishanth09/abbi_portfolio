@@ -3,6 +3,7 @@ import { NextLink } from '../components/NextLink';
 import { skills } from '../data/skills';
 import { site } from '../data/site';
 import Abbishanth from '../assets/Abbishanth.jpg';
+import resume from '../assets/Abbishanth_Resume Cyber Security.pdf';
 
 export function AboutSection() {
   const reduceMotion = useReducedMotion();
@@ -38,6 +39,13 @@ export function AboutSection() {
               className="text-[0.7rem] uppercase tracking-[0.24em] text-ink hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             >
               Contact ↗
+            </a>
+            <a
+              href={resume}
+              download="Abbishanth-Resume.pdf"
+              className="inline-flex items-center border border-ink px-4 py-3 text-[0.7rem] uppercase tracking-[0.2em] text-ink transition-colors duration-200 hover:bg-ink hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            >
+              Download CV ↓
             </a>
             <NextLink href="#work" label="Projects" number="03" />
           </div>

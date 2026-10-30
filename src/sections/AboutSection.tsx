@@ -42,10 +42,11 @@ export function AboutSection() {
             </a>
             <a
               href={resume}
-              download="Abbishanth-Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center border border-ink px-4 py-3 text-[0.7rem] uppercase tracking-[0.2em] text-ink transition-colors duration-200 hover:bg-ink hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             >
-              Download CV ↓
+              View CV ↗
             </a>
             <NextLink href="#work" label="Projects" number="03" />
           </div>
